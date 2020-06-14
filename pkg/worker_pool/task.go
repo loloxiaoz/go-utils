@@ -1,4 +1,4 @@
-package workpool
+package workerpool
 
 import (
 	"math"

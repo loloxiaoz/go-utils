@@ -1,4 +1,4 @@
-package workpool
+package workerpool
 
 //WorkerPoolConf 配置
 type WorkerPoolConf struct {
