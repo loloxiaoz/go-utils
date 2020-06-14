@@ -1,4 +1,4 @@
-package sender
+package ratelimit
 
 import (
 	"sync"
