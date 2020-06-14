@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+//Bucket 令牌桶算法
 type Bucket struct {
 	clock Clock
 
