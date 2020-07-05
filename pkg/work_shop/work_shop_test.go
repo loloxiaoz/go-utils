@@ -73,13 +73,11 @@ func TestWorkshop(t *testing.T) {
 	for i := 0; i < requests; i++ {
 		go func() {
 			defer wg.Done()
-			err := w.Callback(func(worker Worker) error {
+			w.Callback(func(worker Worker) error {
 				worker.(*testWorker).Do()
 				return nil
 			})
-			if err != nil {
-				t.Fatalf("%v", err)
-			}
+			return
 		}()
 	}
 	wg.Wait()

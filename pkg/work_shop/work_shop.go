@@ -38,7 +38,7 @@ type (
 		maxIdleDuration time.Duration
 		infos           map[Worker]*workerInfo
 		minLoadInfo     *workerInfo
-		stats           *WorkshopStats
+		stats           *Stats
 		statsReader     atomic.Value
 		lock            sync.Mutex
 		wg              sync.WaitGroup
@@ -50,8 +50,8 @@ type (
 		jobNum     int32
 		idleExpire time.Time
 	}
-	// WorkshopStats workshop stats
-	WorkshopStats struct {
+	// Stats workshop stats
+	Stats struct {
 		Worker  int32  // The current total number of workers
 		Idle    int32  // The current total number of idle workers
 		Created uint64 // Total created workers
@@ -84,7 +84,7 @@ func NewWorkshop(maxQuota int, maxIdleDuration time.Duration, newWorkerFunc func
 		maxIdleDuration = defaultWorkerMaxIdleDuration
 	}
 	w := new(Workshop)
-	w.stats = new(WorkshopStats)
+	w.stats = new(Stats)
 	w.reportStatsLocked()
 	w.maxQuota = maxQuota
 	w.maxIdleDuration = maxIdleDuration
@@ -199,8 +199,8 @@ func (w *Workshop) Hire() (Worker, error) {
 }
 
 // Stats returns the current workshop stats.
-func (w *Workshop) Stats() WorkshopStats {
-	return w.statsReader.Load().(WorkshopStats)
+func (w *Workshop) Stats() Stats {
+	return w.statsReader.Load().(Stats)
 }
 
 func (w *Workshop) fireLocked(info *workerInfo) {
